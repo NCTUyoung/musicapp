@@ -1,0 +1,14 @@
+{
+  "name": "musicapp",
+  "version": "1.0.0",
+  "main": "main.js",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^6.0.4",
+    "jquery": "^3.4.1",
+    "music-metadata": "^4.4.0"
+  },
+  "scripts": {
+    "start": "electron ."
+  }
+}
