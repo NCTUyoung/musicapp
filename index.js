@@ -8,6 +8,8 @@ let songData = {
 let audioPlayer = $('audio').get(0);
 let playing = false
 let currentIndex = 0
+let timer
+
 function chooseMusic() {
     $('input').click()
 }
@@ -41,6 +43,7 @@ function musicSelected() {
 
 
 function playSong(index) {
+    clearInterval(timer)
     audioPlayer.src = songData.path[index]
     audioPlayer.load()
     audioPlayer.play()
@@ -48,15 +51,18 @@ function playSong(index) {
     playing = true
     currentIndex = index
     updatePlayButton()
+    timer = setInterval(updateTime,1000)
 
 }
 function play() {
     if(playing){
         audioPlayer.pause()
         playing = false
+        clearInterval(timer)
     }else {
         audioPlayer.play()
         playing = true
+        timer = setInterval(updateTime,1000)
     }
     updatePlayButton()
 }
@@ -71,6 +77,30 @@ function playPrevious() {
     currentIndex = ((currentIndex%songData.path.length)+songData.path.length)%songData.path.length
     console.log(currentIndex)
     playSong(currentIndex)
+
+}
+function clearPlaylist() {
+    clearInterval(timer)
+    $('#time-left').text('00:00')
+    $('#total-time').text('00:00')
+    $('#table-body').html('')
+    audioPlayer.pause()
+    audioPlayer.src=''
+    currentIndex = 0
+    playing = false
+    $('h4').text('')
+    songData = {path:[],title:[]}
+    updatePlayButton()
+}
+
+
+function updateTime(){
+    $('#time-left').text(secondsToTime((audioPlayer.currentTime)))
+    $('#total-time').text(secondsToTime(audioPlayer.duration))
+    if(audioPlayer.currentTime>=audioPlayer.duration){
+        playNext()
+    }
+    console.log('updatetime')
 
 }
 function updatePlayButton() {
