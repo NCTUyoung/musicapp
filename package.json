@@ -5,7 +5,7 @@
   "license": "MIT",
   "dependencies": {
     "electron": "^6.0.4",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "music-metadata": "^4.4.0"
   },
   "scripts": {
